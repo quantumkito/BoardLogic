@@ -21,3 +21,18 @@ func initBoard() Board {
 
 	return board
 }
+
+func printBoard(b Board) {
+	for i := 0; i < 8; i++ {
+		fmt.Printf("%d ", 8-i)
+		for j := 0; j < 8; j++ {
+			if b[i][j] == nil {
+				fmt.Print(". ")
+			} else {
+				fmt.Print(b[i][j].Color + b[i][j].Type + " ")
+			}
+		}
+		fmt.Println()
+	}
+	fmt.Println(" a b c d e f g h")
+}
