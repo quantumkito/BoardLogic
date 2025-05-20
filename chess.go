@@ -36,3 +36,15 @@ func printBoard(b Board) {
 	}
 	fmt.Println(" a b c d e f g h")
 }
+
+func parseMove (input string) (fromX, fromY, toX, toY int, err error) {
+	if len(input) != 5 {
+		return 0, 0, 0, 0, errors.New("Invalid input format.")
+	}
+
+	fromY = int (input[0] - 'a')
+	fromX = 8 - int (input[1] - '0')
+	toY = int (input[3] - 'a')
+	toX = 8 - int (input[4] - '0')
+	return
+}
