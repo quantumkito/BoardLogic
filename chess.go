@@ -63,3 +63,45 @@ func movePiece(b *Board, fx, fy, tx, ty int) error {
 	b[fx][fy] = nil
 	return nil
 }
+
+// main function
+
+func main() {
+	board := initBoard()
+	scanner := bufio.NewScanner(os.Stdin)
+	currentPlayer := "w"
+
+	for {
+		printBoard(board)
+		fmt.Printf("%s's move: ", currentPlayer)
+		scanner.Scan()
+		input := scanner.Text()
+
+		fx, fy, tx, ty, err := parseMove(input)
+		if err != nil {
+			fmt.Println("Invalid move:", err)
+			continue
+		}
+
+		piece := board[fx][fy]
+		if piece == nil || piece.Color != currentPlayer {
+			fmt.Println("Not you piece!")
+			continue
+		}
+
+		err = movePiece (&board, fx, fy, tx, ty)
+		if err != nil {
+			fmt.Println ("Error:", err)
+			continue
+		}
+
+		currentPlayer = togglePlayer (currentPlayer)
+	}
+}
+
+func togglePlayer (p string) string {
+	if p == "w" {
+		return "b"
+	}
+	return "w"
+}
