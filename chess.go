@@ -48,3 +48,18 @@ func parseMove (input string) (fromX, fromY, toX, toY int, err error) {
 	toX = 8 - int (input[4] - '0')
 	return
 }
+
+func movePiece(b *Board, fx, fy, tx, ty int) error {
+	piece := b[fx][fy]
+	if piece == nil {
+		return errors.New ("No piece at source.")
+	}
+
+	if b[tx][ty] != nil && b[tx][ty].Color == piece.Color {
+		return errors.New ("Can't capture your own piece.")
+	}
+
+	b[tx][ty] = piece
+	b[fx][fy] = nil
+	return nil
+}
